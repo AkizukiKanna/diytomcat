@@ -35,11 +35,6 @@ public class TestTomcat {
     }
 
     @Test
-    public void testaHtml() {
-        String html = getContentString("/a.html");
-        Assert.assertEquals(html,"Hello DIY Tomcat from a.html");
-    }
-    @Test
     public void testTimeConsumeHtml() throws InterruptedException {
         ThreadPoolExecutor threadPool = new ThreadPoolExecutor(20, 20, 60, TimeUnit.SECONDS,
                 new LinkedBlockingQueue<Runnable>(10));
@@ -57,7 +52,13 @@ public class TestTomcat {
 
         long duration = timeInterval.intervalMs();
 
-        Assert.assertTrue(duration > 3000);
+        Assert.assertTrue(duration < 3000);
+    }
+
+    @Test
+    public void testaIndex() {
+        String html = getContentString("/a/index.html");
+        Assert.assertEquals(html,"Hello DIY Tomcat from index.html@a");
     }
 
     private String getContentString(String uri) {
